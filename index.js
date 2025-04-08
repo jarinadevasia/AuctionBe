@@ -3,19 +3,18 @@
 // cors, express, dotenv
 // nodemon : to automatically detect changes and re-run the server
 // npm i cors express dotenv nodemon
+const routes = require('./Routes/router')
 require('dotenv').config()
 const express = require('express');
+require('./DB/connection');
 const cors = require('cors');
-require('./DB/connection')
-const routes = require('./Routes/router')
 const auctionServer = express();
 auctionServer.use(cors());
 auctionServer.use(express.json());
-auctionServer.use(routes)
-const PORT = 3000;
+auctionServer.use(routes);
 //  auction server should expose the uploads folder for displaying the images
 auctionServer.use('/uploads',express.static('./uploads'))
-
+const PORT = 3000;
 auctionServer.listen(PORT, () => {
     console.log('cart server running successfully in PORT', PORT);
 })
